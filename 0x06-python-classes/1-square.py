@@ -18,4 +18,3 @@ class Square:
                  size : Side of a square
         """
         self.__size = size
-        
