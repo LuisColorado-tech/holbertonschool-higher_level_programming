@@ -1,35 +1,33 @@
 #!/usr/bin/python3
 """
-This function divides all elements of a matrix.
+    Function to divide all the elements of a matrix
 """
 
 
 def matrix_divided(matrix, div):
     """
-    Returns a matrix
+    matrix divided by the int div sended previously
     """
-    new = []
-    error = "matrix must be a matrix (list of lists) of integers/floats"
-
+    Errstr = "matrix must be a matrix (list of lists) of integers/floats"
+    new_list = []
     if type(div) != int and type(div) != float:
-        raise TypeError("div must be a number")
+        raise TypeError('div must be a number')
     if div == 0:
-        raise ZeroDivisionError("division by zero")
-    if type(matrix) != list:
-        raise TypeError(error)
+        raise ZeroDivisionError('division by zero')
 
-    for i in range(len(matrix)):
-        if type(matrix[i]) != list:
-            raise TypeError(error)
-        elif len(matrix[0]) != len(matrix[i]):
-            raise TypeError("Each row of the matrix must have the same size")
-        else:
-            index = []
-            for j in range(len(matrix[i])):
-                if type(matrix[i][j]) != int and type(matrix[i][j]) != float:
-                    raise TypeError(error)
-                else:
-                    index.append(round((matrix[i][j] / div), 2))
-            new.append(index)
-    return new
+    for listleng in range(len(matrix)):
+        new_list.append([])
+
+    len_row = len(matrix[0])
+    for index in range(len(matrix)):
+        count = 0
+        for number in matrix[index]:
+            if type(number) != int and type(number) != float:
+                raise TypeError(Errstr)
+            new_list[index].append(round((number / div), 2))
+            count += 1
+        if len_row != count:
+            raise TypeError('Each row of the matrix must have the same size')
+
+    return new_list
     
