@@ -30,4 +30,3 @@ def matrix_divided(matrix, div):
             raise TypeError('Each row of the matrix must have the same size')
 
     return new_list
-    
