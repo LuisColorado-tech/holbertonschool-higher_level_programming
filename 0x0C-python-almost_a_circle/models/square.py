@@ -1,64 +1,86 @@
 #!/usr/bin/python3
-"""Module square.py"""
+"""
+Module class Square that inherits from Rectangle
+"""
 
 
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Class that defines an square"""
+    """
+    Square - class for a square, this class inherit form Rectangle
+    """
     def __init__(self, size, x=0, y=0, id=None):
-        """Constructor"""
+        """
+        Constructor for square
+        Arguments:
+        @size: size of the rectangle
+        @x: position in x
+        @y: position in y
+        @id: amount of instances created
+        """
         super().__init__(size, size, x, y, id)
-        self.size = size
 
     @property
     def size(self):
-        """Getter size"""
+        """ Getter for width of square """
         return self.width
 
     @size.setter
     def size(self, value):
-        """Setter size - sets width and height as size"""
+        """ Setter for size of square """
+        if type(value) is not int:
+            raise TypeError('width must be an integer')
+        elif value <= 0:
+            raise ValueError('width must be > 0')
         self.width = value
         self.height = value
 
-    def __str__(self):
-        """Prints [Square] (<id>) <x>/<y> - <size>"""
-        return "[{:s}] ({:d}) {:d}/{:d} - {:d}".format(
-            self.__class__.__name__, self.id, self.x, self.y,
-            self.size)
+    # magic methods
 
-    def update(self, *args, **kargs):
-        """Assigns atributes"""
-        if args:
-            for k, v in enumerate(args):
-                if k == 0:
-                    self.id = v
-                elif k == 1:
-                    self.size = v
-                elif k == 2:
-                    self.x = v
-                else:
-                    self.y = v
-        else:
-            if "id" in kargs:
-               self.id = kargs["id"]
-            if "size" in kargs:
-                self.size = kargs["size"]
-            if "x" in kargs:
-                self.x = kargs["x"]
-            if "y" in kargs:
-                self.y = kargs["y"]
+    def __str__(self):
+        """
+        formats string representation of the Square
+        """
+        return ("[{}] ({}) {}/{} - {}".format(
+                self.__class__.__name__, self.id,
+                self.x, self.y, self.width))
+
+    # public methods
+
+    def update(self, *args, **kwargs):
+        """
+        update - assign the arguments to each attribute
+        @args: list of arguments
+        @kargs: dictionary of arguments, key represents
+        an attribute to the instance
+        """
+        if len(args) > 0:
+            if args[0] is not None:
+                self.id = args[0]
+            if len(args) > 1:
+                self.width = args[1]
+                self.height = args[1]
+            if len(args) > 2:
+                self.x = args[2]
+            if len(args) > 3:
+                self.y = args[3]
+        if not args:
+            for key, value in kwargs.items():
+                if key == 'id':
+                    self.id = value
+                if key == "size":
+                    self.width = value
+                    self.height = value
+
+                if key == 'x':
+                    self.x = value
+                if key == 'y':
+                    self.y = value
 
     def to_dictionary(self):
         """
-        Return a dict representation of this class
+        to_dictionary - returns a dictionary representation of a Square
         """
-        dic = {
-                "id": self.id,
-                "size": self.size,
-                "x": self.x,
-                "y": self.y
-                }
-        return dic
+        return {'x': self.x, 'y': self.y, 'id': self.id, 'size': self.width}
