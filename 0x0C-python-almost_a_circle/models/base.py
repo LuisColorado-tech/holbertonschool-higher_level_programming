@@ -82,7 +82,3 @@ class Base:
             for element in dictionary:
                 empty_list.append(cls.create(**element))
         return empty_list
-        
-
-
-        
