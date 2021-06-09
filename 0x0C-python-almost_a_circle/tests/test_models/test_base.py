@@ -12,14 +12,14 @@ from models.rectangle import Rectangle
 from models.square import Square
 
 
-class TestBase(unittest.TestCase):
+class testBase(unittest.TestCase):
     """
     Test cases for the Base class
     """
 
     def tearDown(self):
         """
-        Reset the nb_objects
+        Reset the nb_objects no validated
         """
         Base._Base__nb_objects = 0
 
